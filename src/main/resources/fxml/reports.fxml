@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worktracker.controller.ReportController">
+    <VBox spacing="20.0" style="-fx-background-color: transparent;">
+        <padding>
+            <Insets bottom="10.0" left="5.0" right="10.0" top="5.0"/>
+        </padding>
+
+        <!-- Filters & Export toolbar -->
+        <HBox spacing="15.0" styleClass="card" alignment="CENTER_LEFT">
+            <VBox spacing="5.0">
+                <Label text="From Date" style="-fx-font-weight: bold;" />
+                <DatePicker fx:id="dpFrom" prefWidth="130.0" />
+            </VBox>
+            <VBox spacing="5.0">
+                <Label text="To Date" style="-fx-font-weight: bold;" />
+                <DatePicker fx:id="dpTo" prefWidth="130.0" />
+            </VBox>
+            <VBox spacing="5.0">
+                <Label text="Project" style="-fx-font-weight: bold;" />
+                <ComboBox fx:id="comboProject" promptText="All Projects" prefWidth="150.0" />
+            </VBox>
+            <VBox spacing="5.0">
+                <Label text="Client" style="-fx-font-weight: bold;" />
+                <ComboBox fx:id="comboClient" promptText="All Clients" prefWidth="150.0" />
+            </VBox>
+            
+            <Region HBox.hgrow="ALWAYS" />
+            
+            <HBox spacing="10.0" alignment="BOTTOM_RIGHT" style="-fx-padding: 15 0 0 0;">
+                <Button text="🔄 Refresh" styleClass="btn-primary" onAction="#handleRefresh" />
+                <Button text="📥 Export PDF" styleClass="btn-danger" onAction="#handleExportPdf" />
+                <Button text="📥 Export Excel" styleClass="btn-success" onAction="#handleExportExcel" />
+                <Button text="📥 Export CSV" onAction="#handleExportCsv" />
+            </HBox>
+        </HBox>
+
+        <!-- Analytics Charts Grid -->
+        <GridPane hgap="15.0" vgap="15.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="300.0" percentWidth="50.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="300.0" percentWidth="50.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="300.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="300.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+
+            <!-- Chart 1: Time by Category (PieChart) -->
+            <VBox styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="0" spacing="10.0">
+                <Label text="Time Allocation by Category" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+                <PieChart fx:id="chartCategory" legendSide="RIGHT" VBox.vgrow="ALWAYS" />
+            </VBox>
+
+            <!-- Chart 2: Time by Project (BarChart) -->
+            <VBox styleClass="card" GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="10.0">
+                <Label text="Time Allocation by Project (Hours)" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+                <BarChart fx:id="chartProject" VBox.vgrow="ALWAYS">
+                    <xAxis>
+                        <CategoryAxis label="Projects" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Hours Worked" />
+                    </yAxis>
+                </BarChart>
+            </VBox>
+
+            <!-- Chart 3: Weekly Productivity (LineChart) -->
+            <VBox styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="1" spacing="10.0">
+                <Label text="Daily Productivity Trend (%)" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+                <LineChart fx:id="chartProductivity" VBox.vgrow="ALWAYS">
+                    <xAxis>
+                        <CategoryAxis label="Date" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Productivity %" />
+                    </yAxis>
+                </LineChart>
+            </VBox>
+
+            <!-- Chart 4: Task Completion Status (PieChart) -->
+            <VBox styleClass="card" GridPane.columnIndex="1" GridPane.rowIndex="1" spacing="10.0">
+                <Label text="Task Status Breakdown" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+                <PieChart fx:id="chartStatus" legendSide="BOTTOM" VBox.vgrow="ALWAYS" />
+            </VBox>
+        </GridPane>
+    </VBox>
+</ScrollPane>

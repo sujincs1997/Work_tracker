@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.65" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worktracker.controller.TaskController" style="-fx-background-color: transparent;">
+    
+    <!-- Left Pane: Search Filters & Task List Table -->
+    <VBox spacing="15.0" style="-fx-background-color: transparent; -fx-padding: 0 10 0 0;">
+        <!-- Search & Filters Panel -->
+        <VBox spacing="10.0" styleClass="card">
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <TextField fx:id="txtSearch" promptText="Search tasks (ID, Name, Project, Client)..." HBox.hgrow="ALWAYS" />
+                <Button text="🔍 Search" styleClass="btn-primary" onAction="#handleSearch" />
+                <Button text="Clear" onAction="#handleClearFilters" />
+                <Button text="➕ New Task" styleClass="btn-success" onAction="#handleNewTask" />
+            </HBox>
+            
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <ComboBox fx:id="comboCategoryFilter" promptText="Category" prefWidth="150.0" />
+                <ComboBox fx:id="comboStatusFilter" promptText="Status" prefWidth="130.0" />
+                <ComboBox fx:id="comboPriorityFilter" promptText="Priority" prefWidth="120.0" />
+                <Label text="From:" style="-fx-text-fill: -text-muted;" />
+                <DatePicker fx:id="dpFromDate" prefWidth="130.0" />
+                <Label text="To:" style="-fx-text-fill: -text-muted;" />
+                <DatePicker fx:id="dpToDate" prefWidth="130.0" />
+            </HBox>
+        </VBox>
+        
+        <!-- Task Table -->
+        <VBox VBox.vgrow="ALWAYS" styleClass="card" style="-fx-padding: 10;">
+            <TableView fx:id="tableTasks" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colTaskId" text="Task ID" prefWidth="85.0" />
+                    <TableColumn fx:id="colTaskName" text="Task Name" prefWidth="180.0" />
+                    <TableColumn fx:id="colProject" text="Project" prefWidth="110.0" />
+                    <TableColumn fx:id="colClient" text="Client" prefWidth="100.0" />
+                    <TableColumn fx:id="colCategory" text="Category" prefWidth="130.0" />
+                    <TableColumn fx:id="colPriority" text="Priority" prefWidth="80.0" />
+                    <TableColumn fx:id="colStatus" text="Status" prefWidth="90.0" />
+                    <TableColumn fx:id="colCompletion" text="Comp %" prefWidth="70.0" />
+                    <TableColumn fx:id="colAssignedDate" text="Assigned" prefWidth="95.0" />
+                </columns>
+                <contextMenu>
+                    <ContextMenu>
+                        <items>
+                            <MenuItem text="▶ Start Timer" onAction="#handleContextMenuStartTimer" />
+                            <MenuItem text="🛠 Edit Task" onAction="#handleContextMenuEdit" />
+                            <MenuItem text="🔄 Log Revision" onAction="#handleContextMenuRevision" />
+                            <SeparatorMenuItem />
+                            <MenuItem text="❌ Delete Task" onAction="#handleContextMenuDelete" />
+                        </items>
+                    </ContextMenu>
+                </contextMenu>
+            </TableView>
+        </VBox>
+    </VBox>
+    
+    <!-- Right Pane: Tabs for Task Form, Processes, Revisions -->
+    <VBox styleClass="card" style="-fx-padding: 0;">
+        <TabPane fx:id="tabPaneTaskDetails" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
+            
+            <!-- Tab 1: Task Form Details -->
+            <Tab text="📝 Task Details">
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+                    <VBox spacing="15.0" style="-fx-padding: 15;">
+                        <Label fx:id="lblFormTitle" text="Create New Task" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: -primary-color;" />
+                        <Separator />
+                        
+                        <GridPane hgap="10.0" vgap="12.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="RIGHT" minWidth="90.0" prefWidth="95.0" />
+                                <ColumnConstraints hgrow="ALWAYS" />
+                            </columnConstraints>
+                            
+                            <Label text="Task ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <TextField fx:id="txtTaskId" promptText="Auto-generated if empty" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            
+                            <Label text="Task Name *:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <TextField fx:id="txtTaskName" promptText="Enter task title" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            
+                            <Label text="Project *:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <ComboBox fx:id="comboProjectForm" editable="true" promptText="Select or type project" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            
+                            <Label text="Client *:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <TextField fx:id="txtClient" promptText="Client name" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            
+                            <Label text="Work Order:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                            <TextField fx:id="txtWorkOrder" promptText="Work order reference" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                            
+                            <Label text="Category *:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <ComboBox fx:id="comboCategory" promptText="Select category" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            
+                            <Label text="Priority *:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                            <ComboBox fx:id="comboPriority" promptText="Select priority" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                            
+                            <Label text="Status *:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <ComboBox fx:id="comboStatus" promptText="Select status" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            
+                            <Label text="Completion %:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                            <HBox spacing="10.0" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                <Slider fx:id="sliderCompletion" min="0" max="100" blockIncrement="5" valueChanging="true" HBox.hgrow="ALWAYS" />
+                                <Label fx:id="lblCompletionVal" text="0.0%" prefWidth="50.0" />
+                            </HBox>
+                            
+                            <Label text="Assigned Date:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                            <DatePicker fx:id="dpAssignedDate" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                            
+                            <Label text="Due Date:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                            <DatePicker fx:id="dpDueDate" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                            
+                            <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+                            <TextArea fx:id="txtDescription" promptText="Task description..." prefHeight="70.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                            
+                            <Label text="Notes:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+                            <TextArea fx:id="txtNotes" promptText="General notes..." prefHeight="70.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        </GridPane>
+                        
+                        <HBox spacing="10.0" alignment="CENTER_RIGHT" style="-fx-padding: 10 0 0 0;">
+                            <Button text="Cancel" onAction="#handleCancelForm" />
+                            <Button text="💾 Save Task" styleClass="btn-primary" onAction="#handleSaveTask" />
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+            
+            <!-- Tab 2: Processes Breakdown -->
+            <Tab fx:id="tabProcesses" text="⚙ Sub-Processes">
+                <VBox spacing="15.0" style="-fx-padding: 15;">
+                    <Label text="Task Sub-Processes Breakdown" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                    <Separator />
+                    
+                    <!-- Quick Add Process -->
+                    <HBox spacing="10.0" alignment="CENTER_LEFT">
+                        <TextField fx:id="txtNewProcessName" promptText="Process name (e.g. Design, QA)..." HBox.hgrow="ALWAYS" />
+                        <Button text="➕ Add" styleClass="btn-primary" onAction="#handleAddProcess" />
+                    </HBox>
+                    
+                    <TableView fx:id="tableProcesses" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colProcName" text="Process" prefWidth="120.0" />
+                            <TableColumn fx:id="colProcComp" text="Comp %" prefWidth="75.0" />
+                            <TableColumn fx:id="colProcDuration" text="Duration" prefWidth="90.0" />
+                            <TableColumn fx:id="colProcActions" text="Actions" prefWidth="80.0" />
+                        </columns>
+                        <contextMenu>
+                            <ContextMenu>
+                                <items>
+                                    <MenuItem text="❌ Delete Process" onAction="#handleDeleteProcess" />
+                                </items>
+                            </ContextMenu>
+                        </contextMenu>
+                    </TableView>
+                </VBox>
+            </Tab>
+            
+            <!-- Tab 3: Revisions History -->
+            <Tab fx:id="tabRevisions" text="🔄 Revisions">
+                <VBox spacing="15.0" style="-fx-padding: 15;">
+                    <Label text="Revision History" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                    <Separator />
+                    
+                    <!-- Add Revision Form -->
+                    <VBox spacing="10.0" style="-fx-background-color: -primary-light; -fx-padding: 10; -fx-background-radius: 8;">
+                        <Label text="Log Additional Work Request (Revision)" style="-fx-font-weight: bold; -fx-text-fill: -primary-color;" />
+                        <TextField fx:id="txtRevReason" promptText="Reason for revision * (e.g. Client Feedback)" />
+                        <HBox spacing="10.0">
+                            <TextField fx:id="txtRevHours" promptText="Hours Spent" prefWidth="100.0" />
+                            <TextField fx:id="txtRevMinutes" promptText="Mins Spent" prefWidth="100.0" />
+                            <Slider fx:id="sliderRevCompletion" min="0" max="100" blockIncrement="10" HBox.hgrow="ALWAYS" />
+                            <Label fx:id="lblRevCompVal" text="0%" prefWidth="40.0" />
+                        </HBox>
+                        <TextArea fx:id="txtRevNotes" promptText="Revision details and notes..." prefHeight="50.0" wrapText="true" />
+                        <HBox alignment="CENTER_RIGHT">
+                            <Button text="💾 Add Revision" styleClass="btn-primary" onAction="#handleAddRevision" />
+                        </HBox>
+                    </VBox>
+                    
+                    <ListView fx:id="listRevisions" VBox.vgrow="ALWAYS" />
+                </VBox>
+            </Tab>
+            
+        </TabPane>
+    </VBox>
+</SplitPane>

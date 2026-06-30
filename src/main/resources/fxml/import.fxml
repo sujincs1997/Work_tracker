@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worktracker.controller.ImportController" style="-fx-background-color: transparent;">
+    
+    <!-- Wizard Progress Tracker -->
+    <HBox spacing="10.0" alignment="CENTER" styleClass="card" style="-fx-padding: 10 20;">
+        <Label fx:id="lblStep1" text="1. Select File" style="-fx-font-weight: bold; -fx-text-fill: -primary-color;" />
+        <Label text="➔" style="-fx-text-fill: -text-muted;" />
+        <Label fx:id="lblStep2" text="2. Map Columns" style="-fx-font-weight: bold; -fx-text-fill: -text-muted;" />
+        <Label text="➔" style="-fx-text-fill: -text-muted;" />
+        <Label fx:id="lblStep3" text="3. Preview &amp; Import" style="-fx-font-weight: bold; -fx-text-fill: -text-muted;" />
+    </HBox>
+    
+    <!-- Step Content Area -->
+    <StackPane VBox.vgrow="ALWAYS">
+        
+        <!-- Step 1 Pane: File Selection -->
+        <VBox fx:id="paneStep1" spacing="20.0" styleClass="card" alignment="CENTER">
+            <Label text="Select Tasks File to Import" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+            <Label text="Supports Excel (.xlsx, .xls) and CSV format files." style="-fx-text-fill: -text-muted;" />
+            
+            <HBox spacing="10.0" alignment="CENTER">
+                <TextField fx:id="txtFilePath" promptText="Choose a file..." prefWidth="400.0" editable="false" />
+                <Button text="Browse File..." onAction="#handleBrowseFile" />
+            </HBox>
+            
+            <Label fx:id="lblFileInfo" text="" style="-fx-text-fill: -success; -fx-font-weight: bold;" />
+        </VBox>
+        
+        <!-- Step 2 Pane: Column Mapping -->
+        <VBox fx:id="paneStep2" spacing="15.0" styleClass="card" visible="false">
+            <Label text="Map Spreadsheet Columns to Tasks Database Fields" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+            <Label text="Match the headers from your file on the right to the application fields on the left." style="-fx-text-fill: -text-muted;" />
+            <Separator />
+            
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                <GridPane fx:id="gridMapping" hgap="20.0" vgap="10.0" style="-fx-padding: 10;">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" minWidth="150.0" prefWidth="180.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    
+                    <!-- Mapping rows dynamically populated in Controller, or layout structure -->
+                </GridPane>
+            </ScrollPane>
+        </VBox>
+        
+        <!-- Step 3 Pane: Preview and Execute -->
+        <VBox fx:id="paneStep3" spacing="15.0" styleClass="card" visible="false">
+            <Label text="Preview &amp; Validate Data" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+            <Separator />
+            
+            <HBox spacing="20.0" alignment="CENTER_LEFT">
+                <Label text="Duplicate Records Action:" style="-fx-font-weight: bold;" />
+                <RadioButton fx:id="radioSkip" text="Skip Duplicates" selected="true">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="dupGroup" />
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton fx:id="radioOverwrite" text="Overwrite/Update Duplicates" toggleGroup="$dupGroup" />
+            </HBox>
+            
+            <Label text="Spreadsheet Data Preview (First 5 Rows):" style="-fx-font-weight: bold; -fx-text-fill: -text-muted;" />
+            <TableView fx:id="tablePreview" VBox.vgrow="ALWAYS" prefHeight="200.0" />
+            
+            <Label fx:id="lblImportValidationInfo" text="Ready to import. Please check file contents and mapping." style="-fx-text-fill: -primary-color;" />
+        </VBox>
+    </StackPane>
+    
+    <!-- Footer / Wizard Buttons -->
+    <HBox spacing="10.0" alignment="CENTER_RIGHT" styleClass="card" style="-fx-padding: 15;">
+        <Button fx:id="btnBack" text="⬅ Back" onAction="#handleBack" visible="false" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button fx:id="btnNext" text="Next ➡" styleClass="btn-primary" onAction="#handleNext" />
+        <Button fx:id="btnImportExecute" text="📥 Import Now" styleClass="btn-success" onAction="#handleImportExecute" visible="false" />
+    </HBox>
+</VBox>

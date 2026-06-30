@@ -1,0 +1,6 @@
+Task ID,Task Name,Project,Client,Work Order,Category,Priority,Status,Completion %,Assigned Date,Due Date,Notes
+TASK-101,Setup Local Environment,WorkTracker,Self,WO-901,Development - New,High,Completed,100%,2026-06-25,2026-06-26,Initial setup and tools verification
+TASK-102,Develop SQLite Schema,WorkTracker,Self,WO-902,SQL Development,High,Completed,100%,2026-06-26,2026-06-27,Wrote entities and hibernate configs
+TASK-103,Design FXML Layouts,WorkTracker,Self,WO-903,Development - New,Medium,In Progress,75%,2026-06-27,2026-06-30,Completed dashboard and tasks pages
+TASK-104,Write Integration Tests,WorkTracker,Self,WO-904,Testing,Medium,Pending,0%,2026-06-29,2026-07-02,Core business logic coverage tests
+TASK-105,Compile User Manual,WorkTracker,Self,WO-905,Documentation,Low,Pending,0%,2026-06-29,2026-07-03,Drafting USER_DOCUMENTATION.md

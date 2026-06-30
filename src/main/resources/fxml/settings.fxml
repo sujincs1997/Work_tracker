@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worktracker.controller.SettingsController">
+    <VBox spacing="20.0" style="-fx-background-color: transparent; -fx-padding: 5 10 10 5;">
+        
+        <!-- Database & File Settings Card -->
+        <VBox spacing="15.0" styleClass="card">
+            <Label text="File &amp; Database Settings" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: -primary-color;" />
+            <Separator />
+            
+            <GridPane hgap="15.0" vgap="12.0">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" minWidth="150.0" prefWidth="180.0" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                
+                <!-- Database Path -->
+                <Label text="Database Location:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <TextField fx:id="txtDbPath" HBox.hgrow="ALWAYS" />
+                    <Button text="Browse..." onAction="#handleBrowseDb" />
+                </HBox>
+                
+                <!-- Backup Folder -->
+                <Label text="Backup Directory:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <TextField fx:id="txtBackupPath" HBox.hgrow="ALWAYS" />
+                    <Button text="Browse..." onAction="#handleBrowseBackup" />
+                </HBox>
+                
+                <!-- Export Folder -->
+                <Label text="Default Export Folder:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <TextField fx:id="txtExportPath" HBox.hgrow="ALWAYS" />
+                    <Button text="Browse..." onAction="#handleBrowseExport" />
+                </HBox>
+                
+                <!-- Auto Backup Checkbox -->
+                <Label text="Auto Backup on Exit:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <CheckBox fx:id="chkAutoBackup" text="Enable automatic database backups" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            </GridPane>
+        </VBox>
+        
+        <!-- Themes & Styling Card -->
+        <VBox spacing="15.0" styleClass="card">
+            <Label text="Appearance Preferences" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: -primary-color;" />
+            <Separator />
+            
+            <GridPane hgap="15.0" vgap="12.0">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" minWidth="150.0" prefWidth="180.0" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                
+                <Label text="Theme Mode:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <ComboBox fx:id="comboTheme" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            </GridPane>
+        </VBox>
+        
+        <!-- Shifts Timing Configurations Card -->
+        <VBox spacing="15.0" styleClass="card">
+            <Label text="Shift Schedules Settings" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: -primary-color;" />
+            <Separator />
+            
+            <GridPane hgap="15.0" vgap="12.0">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" minWidth="120.0" prefWidth="150.0" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" />
+                    <ColumnConstraints halignment="RIGHT" minWidth="80.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" />
+                </columnConstraints>
+                
+                <!-- Morning Shift -->
+                <Label text="Morning Shift:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-weight: bold;" />
+                <TextField fx:id="txtShiftMorningStart" promptText="HH:MM (e.g. 06:00)" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="To:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <TextField fx:id="txtShiftMorningEnd" promptText="HH:MM (e.g. 14:00)" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                <!-- General Shift -->
+                <Label text="General Shift:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-weight: bold;" />
+                <TextField fx:id="txtShiftGeneralStart" promptText="HH:MM (e.g. 09:00)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="To:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <TextField fx:id="txtShiftGeneralEnd" promptText="HH:MM (e.g. 18:00)" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                <!-- Evening Shift -->
+                <Label text="Evening Shift:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-weight: bold;" />
+                <TextField fx:id="txtShiftEveningStart" promptText="HH:MM (e.g. 14:00)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="To:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <TextField fx:id="txtShiftEveningEnd" promptText="HH:MM (e.g. 22:00)" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+
+                <!-- Night Shift -->
+                <Label text="Night Shift:" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-weight: bold;" />
+                <TextField fx:id="txtShiftNightStart" promptText="HH:MM (e.g. 22:00)" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="To:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <TextField fx:id="txtShiftNightEnd" promptText="HH:MM (e.g. 06:00)" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            </GridPane>
+        </VBox>
+        
+        <!-- Save Actions toolbar -->
+        <HBox alignment="CENTER_RIGHT" spacing="10.0" styleClass="card" style="-fx-padding: 15;">
+            <Button text="Reset Defaults" onAction="#handleResetDefaults" />
+            <Button text="💾 Save Configurations" styleClass="btn-primary" onAction="#handleSaveSettings" />
+        </HBox>
+    </VBox>
+</ScrollPane>

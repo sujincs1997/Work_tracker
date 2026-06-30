@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worktracker.controller.TimeTrackingController" style="-fx-background-color: transparent;">
+    
+    <!-- Shift Control panel -->
+    <HBox spacing="15.0" styleClass="card" alignment="CENTER_LEFT">
+        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+            <Label text="Shift Tracking Console" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: -primary-color;" />
+            <Label fx:id="lblShiftStatusDetail" text="Not Checked In. Select a shift to log in." style="-fx-text-fill: -text-muted;" />
+        </VBox>
+        
+        <Separator orientation="VERTICAL" />
+        
+        <VBox spacing="5.0">
+            <Label text="Shift Type" style="-fx-font-weight: bold;" />
+            <ComboBox fx:id="comboShift" promptText="Select Shift" prefWidth="150.0" />
+        </VBox>
+        
+        <VBox spacing="5.0">
+            <Label text="Break Duration (Mins)" style="-fx-font-weight: bold;" />
+            <Spinner fx:id="spinnerBreakTime" editable="true" prefWidth="100.0" />
+        </VBox>
+        
+        <HBox spacing="10.0" alignment="BOTTOM_LEFT" style="-fx-padding: 15 0 0 0;">
+            <Button fx:id="btnCheckIn" text="Login Shift" styleClass="btn-success" onAction="#handleCheckIn" prefWidth="120.0" />
+            <Button fx:id="btnCheckOut" text="Logout Shift" styleClass="btn-danger" onAction="#handleCheckOut" prefWidth="120.0" />
+        </HBox>
+    </HBox>
+    
+    <!-- Shift History Table -->
+    <VBox spacing="15.0" styleClass="card" VBox.vgrow="ALWAYS">
+        <Label text="Shift Login/Logout History" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        <Separator />
+        
+        <TableView fx:id="tableShifts" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colShiftId" text="ID" prefWidth="70.0" />
+                <TableColumn fx:id="colShiftType" text="Shift Type" prefWidth="130.0" />
+                <TableColumn fx:id="colLoginTime" text="Login Time" prefWidth="180.0" />
+                <TableColumn fx:id="colLogoutTime" text="Logout Time" prefWidth="180.0" />
+                <TableColumn fx:id="colBreakTime" text="Break Time (Mins)" prefWidth="140.0" />
+                <TableColumn fx:id="colWorkedHours" text="Hours Worked" prefWidth="140.0" />
+            </columns>
+        </TableView>
+    </VBox>
+</VBox>

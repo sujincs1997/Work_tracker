@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worktracker.controller.MainController" prefHeight="768.0" prefWidth="1200.0" styleClass="root">
+    
+    <!-- Left Navigation Sidebar -->
+    <left>
+        <VBox spacing="20.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="20.0" right="15.0" bottom="20.0" left="15.0"/>
+            </padding>
+            
+            <!-- App Logo / Title -->
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <Label text="⏱" textFill="WHITE">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Label>
+                <Label text="WorkTracker" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 18.0;"/>
+            </HBox>
+            
+            <Separator style="-fx-opacity: 0.1;"/>
+            
+            <!-- Nav Links -->
+            <VBox spacing="8.0" VBox.vgrow="ALWAYS">
+                <Button fx:id="btnDashboard" text="📊   Dashboard" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#showDashboard"/>
+                <Button fx:id="btnTasks" text="📋   Task Management" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#showTasks"/>
+                <Button fx:id="btnTimeTracking" text="⏱   Shift &amp; Timer" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#showTimeTracking"/>
+                <Button fx:id="btnCategories" text="📁   Work Categories" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#showCategories"/>
+                <Button fx:id="btnImport" text="📥   Import Wizard" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#showImport"/>
+                <Button fx:id="btnReports" text="📈   Analytics &amp; PDF" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#showReports"/>
+                <Button fx:id="btnSettings" text="⚙   App Settings" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#showSettings"/>
+            </VBox>
+            
+            <!-- Bottom Shift Panel -->
+            <VBox spacing="10.0" style="-fx-background-color: #1E293B; -fx-background-radius: 8px; -fx-padding: 10px;">
+                <Label text="SHIFT STATUS" textFill="#94A3B8" style="-fx-font-size: 10px; -fx-font-weight: bold;"/>
+                <Label fx:id="lblShiftStatus" text="Offline" textFill="#EF4444" style="-fx-font-weight: bold;"/>
+                <ComboBox fx:id="comboShiftType" promptText="Select Shift" maxWidth="Infinity" style="-fx-font-size: 11px;"/>
+                <Button fx:id="btnShiftAction" text="Login" styleClass="btn-success" maxWidth="Infinity" onAction="#handleShiftAction" style="-fx-font-size: 11px;"/>
+            </VBox>
+        </VBox>
+    </left>
+    
+    <!-- Center Content Panel -->
+    <center>
+        <VBox BorderPane.alignment="CENTER">
+            <!-- Top Header Bar -->
+            <HBox spacing="15.0" alignment="CENTER_LEFT" styleClass="header-bar">
+                <Label fx:id="lblHeaderTitle" text="Dashboard" styleClass="header-title"/>
+                <Region HBox.hgrow="ALWAYS" />
+                
+                <!-- Current Timer Indicator -->
+                <HBox spacing="10.0" alignment="CENTER" style="-fx-background-color: -primary-light; -fx-padding: 6px 12px; -fx-background-radius: 20px; -fx-border-color: -border-color; -fx-border-radius: 20px;">
+                    <Label fx:id="lblRunningTask" text="No Active Task" style="-fx-font-size: 12px; -fx-text-fill: -text-main; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblHeaderTimer" text="00:00:00" style="-fx-font-size: 12px; -fx-text-fill: -primary-color; -fx-font-weight: bold;"/>
+                </HBox>
+                
+                <!-- Theme Toggle Button -->
+                <Button fx:id="btnThemeToggle" text="☀️" onAction="#toggleTheme" style="-fx-background-color: transparent; -fx-font-size: 16px; -fx-padding: 2px 8px; -fx-cursor: hand;"/>
+            </HBox>
+            
+            <!-- Dynamic Content Area -->
+            <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS" style="-fx-padding: 20.0;"/>
+        </VBox>
+    </center>
+</BorderPane>

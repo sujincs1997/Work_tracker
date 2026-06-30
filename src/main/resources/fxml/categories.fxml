@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.worktracker.controller.CategoryController" style="-fx-background-color: transparent;">
+    
+    <!-- Left Panel: Create Category -->
+    <VBox spacing="15.0" styleClass="card" HBox.hgrow="NEVER" prefWidth="350.0">
+        <Label text="Manage Categories" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: -primary-color;" />
+        <Separator />
+        
+        <Label text="Category Name *" style="-fx-font-weight: bold;" />
+        <TextField fx:id="txtCategoryName" promptText="Enter category name (e.g. Research)..." />
+        
+        <HBox spacing="10.0" alignment="CENTER_RIGHT" style="-fx-padding: 10 0 0 0;">
+            <Button fx:id="btnCancel" text="Clear" onAction="#handleClear" />
+            <Button fx:id="btnSave" text="💾 Save Category" styleClass="btn-primary" onAction="#handleSave" />
+        </HBox>
+        
+        <Label text="Note: Default system categories cannot be deleted, but you can create/edit custom categories." wrapText="true" style="-fx-text-fill: -text-muted; -fx-font-size: 11px;" />
+    </VBox>
+    
+    <!-- Right Panel: Category List -->
+    <VBox spacing="15.0" styleClass="card" HBox.hgrow="ALWAYS">
+        <Label text="Available Work Categories" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        <Separator />
+        
+        <TableView fx:id="tableCategories" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colCatId" text="ID" prefWidth="80.0" />
+                <TableColumn fx:id="colCatName" text="Category Name" prefWidth="300.0" />
+                <TableColumn fx:id="colCatType" text="Type" prefWidth="120.0" />
+            </columns>
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem text="❌ Delete Category" onAction="#handleDelete" />
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </TableView>
+    </VBox>
+</HBox>

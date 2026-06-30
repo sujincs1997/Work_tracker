@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">org.sqlite.JDBC</property>
+        <property name="connection.url">jdbc:sqlite:worktracker.db</property>
+        <property name="connection.username"></property>
+        <property name="connection.password"></property>
+
+        <!-- JDBC connection pool size -->
+        <property name="connection.pool_size">1</property>
+
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.community.dialect.SQLiteDialect</property>
+
+        <!-- Disable the second-level cache -->
+        <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+
+        <!-- Echo all executed SQL to stdout (for debugging) -->
+        <property name="show_sql">false</property>
+        <property name="format_sql">true</property>
+
+        <!-- Automatically update database schema on startup -->
+        <property name="hbm2ddl.auto">update</property>
+
+        <!-- Annotated classes -->
+        <mapping class="com.worktracker.model.Task"/>
+        <mapping class="com.worktracker.model.TaskProcess"/>
+        <mapping class="com.worktracker.model.Revision"/>
+        <mapping class="com.worktracker.model.WorkCategory"/>
+        <mapping class="com.worktracker.model.ActivityLog"/>
+        <mapping class="com.worktracker.model.ShiftLog"/>
+        <mapping class="com.worktracker.model.AppSettings"/>
+    </session-factory>
+</hibernate-configuration>
