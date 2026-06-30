@@ -9,9 +9,7 @@ out/
 .vscode/
 
 # Java
-*.class
 *.jar
-
 # Logs
 *.log
 
